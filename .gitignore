@@ -1,0 +1,14 @@
+/app/node_modules
+/app/dist
+/app/build
+/app/public/uploads
+/app/public/uploads/*
+/app/public/uploads/*/*
+/app/public/uploads/*/*/*
+/api/node_modules
+/api/dist
+/api/build
+/api/public/uploads
+/api/public/uploads/*
+/api/public/uploads/*/*
+/api/public/uploads/*/*/*
