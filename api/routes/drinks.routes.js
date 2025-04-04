@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 // Create new drink
 router.post('/', upload.single('image'), async (req, res) => {
   try {
-    const { name, category, details, ingredients } = req.body;
+    const { name, category, details, ingredients, recepies } = req.body;
     const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
     
     const drink = new Drink({
@@ -25,6 +25,7 @@ router.post('/', upload.single('image'), async (req, res) => {
       category,
       details: JSON.parse(details),
       ingredients: JSON.parse(ingredients),
+      recepies: JSON.parse(recepies),
       imageUrl
     });
     

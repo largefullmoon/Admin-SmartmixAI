@@ -3,6 +3,7 @@ const DrinkSchema = new mongoose.Schema({
   name: String,
   category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
   details: Object,
+  recepies: Object,
   ingredients: [String],
   imageUrl: String
 });
