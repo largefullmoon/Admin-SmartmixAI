@@ -52,6 +52,7 @@ const CategoryList = () => {
         setEditDialogOpen(true);
     };
 
+<<<<<<< HEAD
     const handleEditClose = () => {
         setSelectedCategory(null);
         setEditDialogOpen(false);
@@ -75,6 +76,63 @@ const CategoryList = () => {
             {success && <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">{success}</div>}
 
             <div className="flex justify-end mb-4">
+=======
+
+      <div className="mb-6">
+        <button
+          onClick={() => setEditDialogOpen(true)}
+          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+        >
+          Add New Category
+        </button>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {editDialogOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold text-gray-800">
+            {selectedCategory ? 'Edit Category' : 'Add New Category'}
+              </h3>
+              <button
+            onClick={handleEditClose}
+            className="text-gray-500 hover:text-gray-700"
+              >
+            <span className="sr-only">Close</span>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+              </button>
+            </div>
+            <CategoryForm
+              category={selectedCategory}
+              onSuccess={handleEditSuccess}
+            />
+          </div>
+            </div>
+          </div>
+        )}
+        {categories.map((category) => (
+          <div key={category._id} className="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="relative h-48">
+              <img
+                src={category.imageUrl || '/placeholder.jpg'}
+                alt={category.name}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-2 right-2 flex gap-2">
+>>>>>>> 12fbdb9fe94068a8ea16eb8364431bcb22be7b14
                 <button
                     onClick={handleCreate}
                     className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"

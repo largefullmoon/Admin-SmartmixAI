@@ -11,7 +11,15 @@ const DrinkForm = ({ drink, onSuccess }) => {
       volume: '',
       alcoholContent: '',
     },
+    recepies : {
+      acid : 0,
+      sugar: 0,
+      creamy: 0,
+      spicy: 0,
+      amer : 0
+    },
     ingredients: [],
+
   });
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState('');
@@ -31,6 +39,13 @@ const DrinkForm = ({ drink, onSuccess }) => {
           description: '',
           volume: '',
           alcoholContent: '',
+        },
+        recepies : drink.recepies || {
+          acid : 0,
+          sugar: 0,
+          creamy: 0,
+          spicy: 0,
+          amer : 0
         },
         ingredients: drink.ingredients || [],
       });
@@ -76,6 +91,16 @@ const DrinkForm = ({ drink, onSuccess }) => {
     });
   };
 
+  const handleRecepieChange = (field) => (e) => {
+    setFormData({
+      ...formData,
+      recepies: {
+        ...formData.recepies,
+        [field]: e.target.value,
+      },
+    });
+  };
+
   const handleAddIngredient = () => {
     if (newIngredient.trim() && !formData.ingredients.includes(newIngredient.trim())) {
       setFormData({
@@ -113,6 +138,7 @@ const DrinkForm = ({ drink, onSuccess }) => {
     submitData.append('category', formData.category);
     submitData.append('details', JSON.stringify(formData.details));
     submitData.append('ingredients', JSON.stringify(formData.ingredients));
+    submitData.append('recepies', JSON.stringify(formData.recepies));
     if (image) submitData.append('image', image);
 
     try {
@@ -262,6 +288,20 @@ const DrinkForm = ({ drink, onSuccess }) => {
           </div>
         </div>
 
+
+        <div>
+          <h3 className="text-lg font-medium text-gray-900 mb-4">Details</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Input id={'acid'} handleChange={handleRecepieChange} value={formData.recepies.acid}  />
+            <Input id={'sugar'} handleChange={handleRecepieChange} value={formData.recepies.sugar} />
+            <Input id={'creamy'} handleChange={handleRecepieChange}  value={formData.recepies.creamy}/>
+            <Input id={'spicy'} handleChange={handleRecepieChange}  value={formData.recepies.spicy}/>
+            <Input id={'amer'} handleChange={handleRecepieChange} value={formData.recepies.amer} />
+          </div>
+        </div>
+
+
+
         <div>
           <h3 className="text-lg font-medium text-gray-900 mb-4">Ingredients</h3>
           <div className="flex gap-2 mb-2">
@@ -347,3 +387,19 @@ const DrinkForm = ({ drink, onSuccess }) => {
 };
 
 export default DrinkForm;
+
+
+const Input = ({ id, handleChange, value }) => (
+   <div>
+              <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
+                {id}
+              </label>
+              <input
+                type="number"
+                id={id}
+                value={value}
+                onChange={handleChange(id)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+)
