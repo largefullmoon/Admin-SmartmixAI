@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const Category = require('../models/Category');
+const path = require('path');
 
 // Get all categories
 router.get('/', async (req, res) => {
@@ -11,6 +12,7 @@ router.get('/', async (req, res) => {
     res.json(categories);
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch categories' });
+    console.log({error: error.message});
   }
 });
 
@@ -34,6 +36,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     res.status(201).json(newCategory);
   } catch (error) {
     res.status(400).json({ message: 'Failed to create category' });
+    console.log({error: error.message});
   }
 });
 

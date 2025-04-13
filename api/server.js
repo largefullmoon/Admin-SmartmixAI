@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
+const fs = require('fs');
 
 // Load environment variables
 dotenv.config();
@@ -24,6 +26,31 @@ const categoryRoutes = require('./routes/category.routes');
 const drinkRoutes = require('./routes/drinks.routes');
 // Routes
 app.use('/admin', adminRoutes);
+
+app.get('/uploads/:filename', (req, res) => {
+  const filePath = path.join(__dirname, 'uploads', req.params.filename);
+
+  try {
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.error(`Error accessing file: ${filePath}`, err);
+        return res.status(404).json({
+          error: err.message,
+          filePath: filePath,
+          message: `The file ${req.params.filename} was not found on the server.`,
+        });
+      }
+      res.sendFile(filePath);
+    });
+  } catch (err) {
+    console.error('Error serving the file:', err);
+    return res.status(500).json({
+      error: err.message,
+      message: 'An error occurred while trying to serve the file.',
+    });
+  }
+});
+
 app.use('/api/categories', categoryRoutes);
 app.use('/api/drinks', drinkRoutes);
 // Error handling middleware

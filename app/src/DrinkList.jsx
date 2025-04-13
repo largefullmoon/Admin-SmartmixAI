@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
+import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import DrinkForm from './DrinkForm';
 
 const DrinkList = () => {
@@ -61,6 +61,11 @@ const DrinkList = () => {
     handleEditClose();
     fetchDrinks();
   };
+  
+  const handleCreate = () => {
+setSelectedDrink(null);
+setEditDialogOpen(true);
+};
 
   return (
     <div className="p-6">
@@ -77,12 +82,22 @@ const DrinkList = () => {
         </div>
       )}
 
+      <div className="flex justify-end mb-4">
+  <button
+    onClick={handleCreate}
+    className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+  >
+    <FaPlus className="w-4 h-4" />
+    Add New Drink
+  </button>
+</div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {drinks.map((drink) => (
           <div key={drink._id} className="bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="relative h-48">
               <img
-                src={drink.imageUrl || '/placeholder.jpg'}
+                src={`${import.meta.env.VITE_API_URL}${drink.imageUrl}` || '/placeholder.jpg'}
                 alt={drink.name}
                 className="w-full h-full object-cover"
               />

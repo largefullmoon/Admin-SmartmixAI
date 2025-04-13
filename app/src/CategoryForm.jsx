@@ -10,7 +10,7 @@ const CategoryForm = ({ category, onSuccess }) => {
 
   useEffect(() => {
     if (category) {
-      setName(category.name);
+      setName(category.name || '');
       setPreview(category.imageUrl || '');
     }
   }, [category]);

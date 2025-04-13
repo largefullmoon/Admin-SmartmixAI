@@ -30,7 +30,7 @@ router.get('/stats', async (req, res) => {
             totalDrinks
         });
     } catch (error) {
-        res.status(500).json({ message: 'Failed to fetch statistics' });
+        res.status(500).json({ message: 'Failed to fetch statistics', error: error.message });
     }
 });
 
@@ -42,7 +42,7 @@ router.get('/users', async (req, res) => {
             .sort({ created_at: -1 });
         res.json({ users });
     } catch (error) {
-        res.status(500).json({ message: 'Failed to fetch users' });
+        res.status(500).json({ message: 'Failed to fetch users', error: error.message });
     }
 });
 
@@ -52,7 +52,7 @@ router.get('/recipes', async (req, res) => {
         const recipes = await Recipe.find().sort({ name: 1 });
         res.json({ recipes });
     } catch (error) {
-        res.status(500).json({ message: 'Failed to fetch recipes' });
+        res.status(500).json({ message: 'Failed to fetch recipes', error: error.message });
     }
 });
 
