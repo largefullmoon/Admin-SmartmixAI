@@ -18,6 +18,6 @@ export default defineConfig({
     },
   },
   server: {
-    port: 8000, // Change the port to 9000
+    port: 8005, // Change the port to 9000
   },
 })
